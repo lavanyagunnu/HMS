@@ -1,0 +1,18 @@
+image: gitpod/workspace-full
+
+tasks:
+  - init: |
+      sudo apt-get update
+      sudo apt-get install -y apache2 mysql-server php php-mysql
+      sudo apt-get install -y libapache2-mod-php
+
+  - command: |
+      sudo service apache2 start
+      sudo service mysql start
+      sudo mysql -u root -e "CREATE DATABASE IF NOT EXISTS myhmsdb;"
+      sudo mysql -u root myhmsdb < HMS/myhmsdb.sql
+      echo "Apache and MySQL are running. Access your app at https://<workspace-url>/HMS"
+ports:
+  - port: 80
+    onOpen: open-preview
+
